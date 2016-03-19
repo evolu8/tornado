@@ -22,6 +22,13 @@ import tornado.web
 import tornado.wsgi
 import unicodedata
 
+try:
+    import MySQLdb
+except:
+    # it was taking me forever to install Mysqldb on my mac so will only connect on live
+
+    pass
+
 from google.appengine.api import users
 from google.appengine.ext import db
 
