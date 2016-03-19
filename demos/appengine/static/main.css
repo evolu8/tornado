@@ -92,62 +92,46 @@ a code {
 
 #footer,
 #content {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#cloud {
+  margin-left: 0px;
+  margin-right: 0px;
+  text-align: center;
 }
 
 #footer {
   margin-top: 3em;
 }
 
-.entry h1 a {
-  color: black;
-  text-decoration: none;
+#inputs {
+  height: 5vw;
 }
 
-.entry {
-  margin-bottom: 2em;
+#url-input {
+  width: 70%;
+  font-size: 2vw;
+  float: left;
+
+}
+#url-submit {
+    font-size: 2vw;
+    width: 25%;
+    float: right;
 }
 
-.entry .date {
-  margin-top: 3px;
+.info {
+  margin-top: 10em;
+  font-size: 3vw;
+  clear: both;
 }
 
-.entry p {
-  margin: 0;
-  margin-bottom: 1em;
+.instruction{
+  color: green;
 }
 
-.entry .body {
-  margin-top: 1em;
-  line-height: 16pt;
-}
-
-.compose td {
-  vertical-align: middle;
-  padding-bottom: 5px;
-}
-
-.compose td.field {
-  padding-right: 10px;
-}
-
-.compose .title,
-.compose .submit {
-  font-family: "Helvetica Nue", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-}
-
-.compose .title {
-  font-size: 20pt;
-}
-
-.compose .title,
-.compose .body_source {
-  width: 100%;
-}
-
-.compose .body_source {
-  height: 500px;
-  line-height: 16pt;
+.error {
+    color: red;
 }

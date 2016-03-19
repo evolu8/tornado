@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 
 {% block body %}
-<form action="/">
+<div id="inputs">
+    <form action="/">
 
-    <input name="q" type="text" placeholder="http://wikipedia.org"> <input type="submit">
+    <input id="url-input" name="q" type="text" placeholder="http://wikipedia.org"> <button id="url-submit" type="submit">Submit</button>
 
 </form>
 
+</div>
+
+<div id="cloud">
     {% for word in top100 %}
-      <li>
-        {{ word }}
-      </li>
+
+        <span style="font-size: {{ 1.20 + (8.0 * word[1]/max_freq) }}vw">{{ word[0] }} </span>
+
     {% end %}
+
+    <span class="info error">{{ error }}</span>
+    <span class="info instruction">{{ instruction }}</span>
+</div>
+
+
+<br>
+
+
 {% end %}
+
