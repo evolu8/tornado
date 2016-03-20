@@ -29,7 +29,7 @@ Parseing errors are common too, these might be mitigated with further work on th
 Thoughts
 ========
 
-Weighting results against common the inverse of their frequency can often yield more interesting results. e.g. reducing
+Weighting results against the inverse of their frequency in common use can often yield more interesting results. e.g. reducing
 the prominence of numbers, colours and other such groups of words, within the word cloud.
 
 For more advance analysis of sentiment, and subject of a given page use of Google's Word2vec library to generate a many

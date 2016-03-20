@@ -26,6 +26,7 @@ input,
 textarea {
   font-family: Georgia, serif;
   font-size: 12pt;
+  margin: 1%;
 }
 
 table {
@@ -119,7 +120,7 @@ a code {
 }
 #url-submit {
     font-size: 2vw;
-    width: 25%;
+    width: 20%;
     float: right;
 }
 
