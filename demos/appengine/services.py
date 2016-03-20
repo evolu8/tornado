@@ -5,7 +5,7 @@ import hashlib
 
 
 import models
-import settings
+import secrets
 import cryptAES
 
 
@@ -24,7 +24,7 @@ def scrape(url):
 
 class DataInterfaceGAE():
     def insert(self, word, count):
-        hashed_word = hashlib.sha512(word + settings.salt).hexdigest()
+        hashed_word = hashlib.sha512(word + secrets.salt).hexdigest()
         q = models.WordRow.query(models.WordRow.word_hash==hashed_word)
         wr = models.WordRow()
         if q.count() == 1:

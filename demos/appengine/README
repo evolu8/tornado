@@ -1,3 +1,38 @@
+Notes on security
+=================
+
+This demo stores the data at rest in encrypted form. There is a salted hash of the word, indexed for fast lookup, and the
+word itself is encrypted using strong AES encryption. The salt and secret stored in the secrets.py in this repo should
+NOT be used in production (for serious applications). Instead, a pair of 32 character long values should be
+randomly generated and uploaded, then excluded from the future deployments using skip_files in the app.yaml
+
+Store a copy of those values elsewhere (not in the repo) secured the level appropriate, with access granted only to those
+for whom access is required.
+
+For advanced levels of security, the keys could be split with an XOR against values of equal length, and then recombined
+programmaticaly, so that no one individual would have access. Typically two groups, seperated geographically would have
+access to one half each. The method of splitting and recombining is not included in this demo. This is an extreme case
+for highly sensitive information.
+
+Notes on known issues
+=====================
+
+Performance is poor as yet. Mostly around the filtering of the words to avoid displaying uninteresting common words.
+Various techniques could be deployed to improve this, including the use of numpy or multithreading (which the challenge
+is suited to).
+
+Also many pages fail, as it is now common to use anti scraping techniques at the server. Whilest many of these can be
+worked around, no attempt to do so has been made here. As such wikipedia pages are your best bet for good results.
+
+Thoughts
+========
+
+Weighting results against common the inverse of their frequency can often yield more interesting results. e.g. reducing
+the prominence of numbers, colours and other such groups of words, within the word cloud.
+
+For more advance analysis of sentiment, and subject of a given page use of Google's Word2vec library to generate a many
+dimentional word-space, and allow 'distance' analyses against class typical data.
+
 Running the Tornado AppEngine example
 =====================================
 This example is designed to run in Google AppEngine, so there are a couple
@@ -34,7 +69,7 @@ If you want to deploy the blog in production:
 
    First register a new application at http://appengine.google.com/.
    Then edit app.yaml in this directory and change the "application"
-   setting from "tornado-appenginge" to your new application id.
+   setting to your new application id.
 
 2. Deploy to App Engine
 

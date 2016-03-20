@@ -3,11 +3,11 @@ import hashlib
 from Crypto import Random
 from Crypto.Cipher import AES
 
-import settings
+import secrets
 
 class AESCipher(object):
 
-    def __init__(self, key=settings.secret):
+    def __init__(self, key=secrets.secret):
         self.bs = 32
         self.key = hashlib.sha256(key.encode()).digest()
 
