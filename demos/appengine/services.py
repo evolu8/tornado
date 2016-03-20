@@ -24,7 +24,7 @@ def scrape(url):
 
 class DataInterfaceGAE():
     def insert(self, word, count):
-        hashed_word = hashlib.sha512(word + secrets.salt).hexdigest()
+        hashed_word = hashlib.sha512(word.encode('utf-8') + secrets.salt).hexdigest()
         q = models.WordRow.query(models.WordRow.word_hash==hashed_word)
         wr = models.WordRow()
         if q.count() == 1:

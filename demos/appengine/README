@@ -19,10 +19,12 @@ Notes on known issues
 
 Performance is poor as yet. Mostly around the filtering of the words to avoid displaying uninteresting common words.
 Various techniques could be deployed to improve this, including the use of numpy or multithreading (which the challenge
-is suited to).
+is suited to). However for the best possible performance I would reach for NodeJS.
 
-Also many pages fail, as it is now common to use anti scraping techniques at the server. Whilest many of these can be
+Also many pages fail, as it is now common to use anti scraping techniques at the server. Whilst many of these can be
 worked around, no attempt to do so has been made here. As such wikipedia pages are your best bet for good results.
+
+Parseing errors are common too, these might be mitigated with further work on the HTML parser.
 
 Thoughts
 ========
