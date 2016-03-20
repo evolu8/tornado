@@ -29,11 +29,11 @@ class DataInterfaceGAE():
         wr = models.WordRow()
         if q.count() == 1:
             wr = q.get()
-            wr.count += count
+            wr.count = wr.count + count
             wr.put_async()
         else:
             ciph =  cryptAES.AESCipher()
-            wr.count += count
+            wr.count = count
             wr.encrypted_word = ciph.encrypt(word)
             wr.word_hash = hashed_word
             wr.put_async()
