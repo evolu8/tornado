@@ -127,10 +127,12 @@ a code {
   margin-top: 10em;
   font-size: 3vw;
   clear: both;
+  font-family: Verdana;
 }
 
 .instruction{
   color: green;
+  font-family: Verdana;
 }
 
 .error {
@@ -149,4 +151,33 @@ tr {
   font-family: Verdana;
   margin: 1vw;
   font-size: 2vw;
+}
+
+button {
+  padding:8px 30px;
+  border-radius: 6px;
+  border:none;
+  display:inline-block;
+  color:#fff;
+  text-decoration: none;
+  background-color: #28a8e0;
+
+}
+button:hover {
+  text-decoration: none;
+  background-color:#1b8aba;
+}
+button:focus {
+  outline:none;
+}
+button:after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  content:"";
+  position: relative;
+  top:-10px;
+  right:-5px;
 }

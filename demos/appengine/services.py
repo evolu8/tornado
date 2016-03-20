@@ -10,6 +10,14 @@ import cryptAES
 
 
 def scrape(url):
+    """
+    Scraper to go grab html content of requested URL
+    Args:
+        url:
+
+    Returns:
+        raw html of page found at URL
+    """
     rpc = urlfetch.create_rpc()
     urlfetch.make_fetch_call(rpc, url)
     text = ""
@@ -18,12 +26,16 @@ def scrape(url):
         if result.status_code == 200:
             text = result.content
     except urlfetch.DownloadError:
+        # this get handled further up the flow, but more should be done here ideally
         pass
     return text
 
 
 class DataInterfaceGAE():
     def insert(self, word, count):
+        """
+        upsert the salted hashed word, the encrypted word and the incremented count
+        """
         hashed_word = hashlib.sha512(word.encode('utf-8') + secrets.salt).hexdigest()
         q = models.WordRow.query(models.WordRow.word_hash==hashed_word)
         wr = models.WordRow()
@@ -38,6 +50,11 @@ class DataInterfaceGAE():
             wr.word_hash = hashed_word
             wr.put_async()
     def list(self):
+        """
+        lists all rows for the admin page to render
+        """
+        #  TODO: paginate/offset and repeate before production ready,
+        #  as 100000 is the hard limit of a single fetch
         wrs = models.WordRow.query().fetch(limit=100000)
         return wrs
 
@@ -45,15 +62,25 @@ class DataInterfaceGAE():
 
 
 class DataInterfaceMySQL():
-    #MySQLdb import failing on my Mac. Will fix this if I get time.
+    #  TODO: MySQLdb import failing on my Mac. Will fix this if I get time.
     pass
 
 def html2text(html):
-    #parser = MyHTMLParser()
+    """
+        This does not produce pretty text, but we don't need it to be.
+    Args:
+        html:
+
+    Returns:
+        single string of all the text within the html's text nodes.
+    """
     exclude = ["script", "style"]
+    # TODO: we should allow resumption on parsing errors. HTML can be broken on many sites
     parser = ET.XMLParser(encoding="utf-8")
     tree = ET.fromstring(html, parser=parser)
-    resp = ""
+    resp=""
+
+    #  some recursive fun
     def walk(el):
         resp = ""
         for i in el:
@@ -65,9 +92,12 @@ def html2text(html):
     return resp
 
 def str2words(str_in):
+    #  this could be more sophisticated
     return str_in.split()
 
 def list2freq(list_in):
+
+    #  the collections Counter is extremely fast and great for this task of feq compilation on lists
     cnt = Counter(list_in)
     return dict(cnt)
 
