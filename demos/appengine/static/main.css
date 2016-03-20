@@ -26,7 +26,6 @@ input,
 textarea {
   font-family: Georgia, serif;
   font-size: 12pt;
-  margin: 1%;
 }
 
 table {
@@ -116,11 +115,14 @@ a code {
   width: 70%;
   font-size: 2vw;
   float: left;
-
+  margin: 0px;
 }
+
+
+
 #url-submit {
     font-size: 2vw;
-    width: 20%;
+    width: 21%;
     float: right;
 }
 
@@ -133,7 +135,6 @@ a code {
 
 .instruction{
   color: green;
-  font-family: Verdana;
 }
 
 .error {
