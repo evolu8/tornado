@@ -6,7 +6,7 @@ import hashlib
 
 import models
 import settings
-import crypt
+import cryptAES
 
 
 def scrape(url):
@@ -23,18 +23,24 @@ def scrape(url):
 
 
 class DataInterfaceGAE():
-    def insert(self, word, count, salt):
+    def insert(self, word, count):
         hashed_word = hashlib.sha512(word + settings.salt).hexdigest()
         q = models.WordRow.query(models.WordRow.word_hash==hashed_word)
         wr = models.WordRow()
-        if q.count == 1:
+        if q.count() == 1:
             wr = q.get()
             wr.count += count
-            wr.put()
+            wr.put_async()
         else:
-            ciph =  crypt.AESCipher()
-            wr.count = count
+            ciph =  cryptAES.AESCipher()
+            wr.count += count
             wr.encrypted_word = ciph.encrypt(word)
+            wr.word_hash = hashed_word
+            wr.put_async()
+    def list(self):
+        wrs = models.WordRow.query().fetch(limit=100000)
+        return wrs
+
 
 
 

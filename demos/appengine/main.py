@@ -5,9 +5,17 @@ import tornado.web
 import tornado.wsgi
 import services
 import commonWords
+import settings
+import cryptAES
 
 
 from google.appengine.api import users
+
+if settings.selected_datastor_type==0:
+    # MySQLdb import failing to install on my mac. Will use NDB for now
+    dbi = services.DataInterfaceMySQL()
+else:
+    dbi = services.DataInterfaceGAE()
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -25,6 +33,13 @@ class BaseHandler(tornado.web.RequestHandler):
         ns = super(BaseHandler, self).get_template_namespace()
         ns['users'] = users
         return ns
+
+class AdminHandler(BaseHandler):
+    def get(self):
+        wrs_enc = dbi.list()
+        ciph = cryptAES.AESCipher()
+        wrs = [{"word":ciph.decrypt(wr.encrypted_word), "count": wr.count} for wr in wrs_enc]
+        self.render("admin.html", wrs=wrs)
 
 
 class HomeHandler(BaseHandler):
@@ -56,6 +71,8 @@ class HomeHandler(BaseHandler):
         significant_words = [w for w in significant_words if len(w) > 1 and w not in commonWords.word_list[:100]]
 
         top100 = services.topFreq(significant_words, 100)
+        for wrt in top100:
+            dbi.insert(wrt[0], wrt[1])
         max_freq = max([v for k,v in top100])
         self.render("home.html", top100=top100, max_freq=max_freq, error=error, instruction=instruction)
 
@@ -65,7 +82,8 @@ settings = {
     "xsrf_cookies": True,
 }
 application = tornado.web.Application([
-    (r"/", HomeHandler)
+    (r"/", HomeHandler),
+    (r"/admin", AdminHandler),
 ], **settings)
 
 application = tornado.wsgi.WSGIAdapter(application)
