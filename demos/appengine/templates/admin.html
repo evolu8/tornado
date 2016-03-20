@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div id="all_word_rows">
+  <input class="search" placeholder="Search" />
+  <button class="sort" data-sort="count">
+    Sort by count
+  </button>
+  <button class="sort" data-sort="word">
+    Sort by word
+  </button>
+  <ul class="list" id="wrs-list">
+      {% for wr in wrs %}
+      <li>
+          <span class="word"> {{ wr["word"] }} </span><span class="count">{{ wr["count"] }}</span>
+
+      </li>
+      {% end %}
+  </ul>
+
+</div>
+
+
+
+<script>
+    var options = {
+        valueNames: [ 'word', 'count' ]
+    };
+
+    var all_word_rows_list = new List('all_word_rows', options);
+    all_word_rows_list.sort('count', { order: "desc" });
+</script>
+
+
+
+{% end %}
+
