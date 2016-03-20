@@ -74,11 +74,12 @@ a code {
 }
 
 #header {
-  background-color: #3b5998;
+  background-color: #cccccc;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 1em;
+  text-align: right;
 }
 
 #header,
@@ -134,4 +135,18 @@ a code {
 
 .error {
     color: red;
+}
+
+.all-words {
+  width: 100%;
+}
+
+tr {
+      border-bottom: 1px lightgrey solid;
+}
+
+.nav {
+  font-family: Verdana;
+  margin: 1vw;
+  font-size: 2vw;
 }

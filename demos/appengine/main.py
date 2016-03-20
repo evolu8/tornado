@@ -67,8 +67,9 @@ class HomeHandler(BaseHandler):
             resp = resp.replace(ch, "")
 
         significant_words = services.str2words(resp.lower())
-
-        significant_words = [w for w in significant_words if len(w) > 1 and w not in commonWords.word_list[:100]]
+        #removing the most common prepositions, articles and top X words used in English
+        to_exclude = commonWords.preps + commonWords.arts + commonWords.word_list[:50]
+        significant_words = [w for w in significant_words if len(w) > 1 and w not in to_exclude]
 
         top100 = services.topFreq(significant_words, 100)
         for wrt in top100:
